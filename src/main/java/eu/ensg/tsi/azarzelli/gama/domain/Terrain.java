@@ -18,7 +18,7 @@ public class Terrain {
      * Minimum Y coordinate. Units depends of the projection.
      */
     private double yMin;
-
+    
     /**
      * Maximum X coordinate. Units depends of the projection.
      */
@@ -42,14 +42,9 @@ public class Terrain {
     private double altitudeFactor;
 
     /**
-     * Resolution of the DEM along the X axis in the projection unit.
+     * Size of a DEM cell  along X and Y axes in the projection unit.
      */
-    private double xResolution;
-
-    /**
-     * Resolution of the DEM along the Y axis in the projection unit.
-     */
-    private double yResolution;
+    private double cellSize;
 
     /**
      * Procedural generation algorithm strategy.
@@ -64,17 +59,17 @@ public class Terrain {
     
     // Constructors ---------------------------------------
 
-	public Terrain(double xMin, double yMin, double xMax, double yMax, 
-			double xResolution, double yResolution) {
+	public Terrain(double xMin, double yMin, double xMax, double yMax,
+			double cellSize) {
+		
 		this.xMin = xMin;
 		this.yMin = yMin;
 		this.xMax = xMax;
 		this.yMax = yMax;
-		this.xResolution = xResolution;
-		this.yResolution = yResolution;
+		this.cellSize = cellSize;
 		
-		int ySize = (int) ((yMax-yMin)/yResolution);
-		int xSize = (int) ((xMax-xMin)/xResolution);
+		int ySize = (int) ((yMax-yMin)/cellSize);
+		int xSize = (int) ((xMax-xMin)/cellSize);
 		
 		this.matrix = new double[ySize][xSize];
 	}

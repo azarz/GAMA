@@ -13,10 +13,9 @@ public class TerrainTest {
 		double xMax = 100;
 		double yMax = 100;
 		
-		double xResolution = 1;
-		double yResolution = 1; 
+		double cellSize = 1;
 		
-		Terrain terrain = new Terrain(xMin, yMin, xMax, yMax, xResolution, yResolution);
+		Terrain terrain = new Terrain(xMin, yMin, xMax, yMax, cellSize);
 		
 		assertTrue(terrain.getMatrix().length == 100);
 	}
