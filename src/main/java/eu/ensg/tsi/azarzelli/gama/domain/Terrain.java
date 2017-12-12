@@ -7,6 +7,8 @@ import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
  */
 public class Terrain {
 
+	//Attributes ------------------------------------------
+	
     /**
      * Minimum X coordinate. Units depends of the projection.
      */
@@ -42,12 +44,12 @@ public class Terrain {
     /**
      * Resolution of the DEM along the X axis in the projection unit.
      */
-    private int xResolution;
+    private double xResolution;
 
     /**
      * Resolution of the DEM along the Y axis in the projection unit.
      */
-    private int yResolution;
+    private double yResolution;
 
     /**
      * Procedural generation algorithm strategy.
@@ -58,9 +60,36 @@ public class Terrain {
      * Elevation matrix containing an altitude value for each point.
      */
     private double[][] matrix;
+    
+    
+    // Constructors ---------------------------------------
 
+	public Terrain(double xMin, double yMin, double xMax, double yMax, 
+			double xResolution, double yResolution) {
+		this.xMin = xMin;
+		this.yMin = yMin;
+		this.xMax = xMax;
+		this.yMax = yMax;
+		this.xResolution = xResolution;
+		this.yResolution = yResolution;
+		
+		int ySize = (int) ((yMax-yMin)/yResolution);
+		int xSize = (int) ((xMax-xMin)/xResolution);
+		
+		this.matrix = new double[ySize][xSize];
+	}
 
-    /**
+	
+	// Getters --------------------------------------------
+	
+	public double[][] getMatrix() {
+		return matrix;
+	}
+
+	
+	// Methods --------------------------------------------
+	
+	/**
      * Generates procedurally the terrain according to the
      * generation strategy.
      */
