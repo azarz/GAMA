@@ -1,6 +1,6 @@
 package eu.ensg.tsi.azarzelli.gama.exceptions;
 
-public class GenerationMethodNotFoundException extends Exception {
+public class GenerationMethodNotFoundException extends RuntimeException {
 
 	/**
 	 * 

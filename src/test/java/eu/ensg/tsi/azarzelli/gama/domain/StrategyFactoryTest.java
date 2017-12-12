@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import eu.ensg.tsi.azarzelli.gama.exceptions.GenerationMethodNotFoundException;
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
 
@@ -14,13 +13,14 @@ public class StrategyFactoryTest {
 	public void creationTest() {
 		StrategyFactory factory = new StrategyFactory();
 		
-		IGenerationStrategy strategy = null;
-		try {
-			strategy = factory.createStrategy("random");
-		} catch (GenerationMethodNotFoundException e) {
-			e.printStackTrace();
-		}
+		IGenerationStrategy strategy;
+		strategy = factory.createStrategy("random");
+		assertTrue(strategy instanceof RandomStrategy);
 		
+		strategy = factory.createStrategy("Random");
+		assertTrue(strategy instanceof RandomStrategy);
+		
+		strategy = factory.createStrategy("RANDOM");
 		assertTrue(strategy instanceof RandomStrategy);
 	}
 
