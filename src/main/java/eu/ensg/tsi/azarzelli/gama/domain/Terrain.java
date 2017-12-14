@@ -1,6 +1,8 @@
 package eu.ensg.tsi.azarzelli.gama.domain;
 
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
+import eu.ensg.tsi.azarzelli.gama.io.AscWriter;
+import eu.ensg.tsi.azarzelli.gama.io.GeotiffWriter;
 
 /**
  * 
@@ -118,19 +120,22 @@ public class Terrain {
     }
 
     /**
-     * Writes the Terrain matrix into a .asc file.
+     * Writes the Terrain matrix into an asc file.
      * @param filepath: path of the file to write.
      */
     public void toAsc(String filepath) {
-        // TODO implement here
+        AscWriter writer = new AscWriter();
+        writer.write(this, filepath);
     }
 
     /**
-     * Writes the Terrain matrix into a .geotiff file.
+     * Writes the Terrain matrix into a geotiff file.
      * @param filepath: path of the file to write.
      */
     public void toGeotiff(String filepath) {
-        // TODO implement here
+    	GeotiffWriter writer = new GeotiffWriter();
+        writer.write(this, filepath);
+
     }
 
 }
