@@ -73,6 +73,12 @@ public class Terrain {
 		
 		this.matrix = new double[ySize][xSize];
 	}
+	
+	public Terrain(String generationStrategyName) {
+		this(0.,0.,100.,100.,1.);
+		StrategyFactory factory = new StrategyFactory();
+		this.generationStrategy = factory.createStrategy(generationStrategyName);
+	}
 
 	
 	// Getters --------------------------------------------
@@ -80,10 +86,14 @@ public class Terrain {
 	public double[][] getMatrix() {
 		return matrix;
 	}
+	
+	public IGenerationStrategy getGenerationStrategy() {
+		return generationStrategy;
+	}
 
 	
 	// Methods --------------------------------------------
-	
+
 	/**
      * Generates procedurally the terrain according to the
      * generation strategy.

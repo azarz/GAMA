@@ -8,6 +8,7 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
     /**
      * @param matrix
      */
+	@Override
     public void generate(double[][] matrix) {
         // TODO implement here
     }
