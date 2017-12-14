@@ -30,6 +30,11 @@ public class Terrain {
     private double yMax;
 
     /**
+     * Size of a DEM cell  along X and Y axes in the projection unit.
+     */
+    private double cellSize;
+    
+    /**
      * Name of the projection system. Example: "EPSG:4326"
      */
     private String projectionName;
@@ -41,10 +46,6 @@ public class Terrain {
      */
     private double altitudeFactor;
 
-    /**
-     * Size of a DEM cell  along X and Y axes in the projection unit.
-     */
-    private double cellSize;
 
     /**
      * Procedural generation algorithm strategy.
@@ -59,25 +60,39 @@ public class Terrain {
     
     // Constructors ---------------------------------------
 
-	public Terrain(double xMin, double yMin, double xMax, double yMax,
-			double cellSize) {
-		
+    /**
+     * Constructor using all the arguments, called by all the other basic constructors
+     */
+    public Terrain(double xMin, double yMin, double xMax, double yMax, double cellSize,
+    		String projectionName, double altitudeFactor, String generationStrategyName) {
+
 		this.xMin = xMin;
 		this.yMin = yMin;
 		this.xMax = xMax;
 		this.yMax = yMax;
+		this.projectionName = projectionName;
+		this.altitudeFactor = altitudeFactor;
 		this.cellSize = cellSize;
 		
 		int ySize = (int) ((yMax-yMin)/cellSize);
 		int xSize = (int) ((xMax-xMin)/cellSize);
 		
 		this.matrix = new double[ySize][xSize];
-	}
-	
-	public Terrain(String generationStrategyName) {
-		this(0.,0.,100.,100.,1.);
+		
 		StrategyFactory factory = new StrategyFactory();
 		this.generationStrategy = factory.createStrategy(generationStrategyName);
+	}
+    
+    
+	public Terrain(double xMin, double yMin, double xMax, double yMax,
+			double cellSize) {
+		
+		this(xMin,yMin,xMax,yMax,cellSize,"EPSG:4326",1.,"random");
+	}
+	
+
+	public Terrain(String generationStrategyName) {
+		this(0.,0.,100.,100.,1.,"EPSG:4326",1.,generationStrategyName);
 	}
 
 	
@@ -99,7 +114,7 @@ public class Terrain {
      * generation strategy.
      */
     public void generate() {
-        // TODO implement here
+        generationStrategy.generate(matrix);
     }
 
     /**

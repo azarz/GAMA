@@ -13,8 +13,18 @@ public class RandomStrategyTest {
 		
 		randomStrat.generate(matrix);
 		
+		double sum = 0;
+		
+        for (int i = 0; i<matrix.length; i++) {
+        	for (int j = 0; j<matrix[0].length; j++) {
+        		sum += matrix[i][j] ;
+        	}
+        }
+	    
 		assertTrue(matrix[0][0] >= 0);
 		assertTrue(matrix[0][0] < 1);
+		assertTrue(sum > 1);
+		assertTrue(sum < 10000);
 	}
 
 }

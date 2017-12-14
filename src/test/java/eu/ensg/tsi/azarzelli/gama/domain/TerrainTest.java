@@ -31,5 +31,25 @@ public class TerrainTest {
 		Terrain terrain = new Terrain("random");
 		assertTrue(terrain.getGenerationStrategy() instanceof RandomStrategy);
 	}
+	
+	@Test
+	public void generateTest() {
+		Terrain terrain = new Terrain("random");
+		terrain.generate();
+		
+		double sum = 0;
+		
+        for (int i = 0; i<terrain.getMatrix().length; i++) {
+        	for (int j = 0; j<terrain.getMatrix()[0].length; j++) {
+        		sum += terrain.getMatrix()[i][j] ;
+        	}
+        }
+		
+		assertTrue(terrain.getMatrix()[0][0] >= 0);
+		assertTrue(terrain.getMatrix()[0][0] < 1);
+		
+		assertTrue(sum > 1);
+		assertTrue(sum < 10000);
+	}
 
 }
