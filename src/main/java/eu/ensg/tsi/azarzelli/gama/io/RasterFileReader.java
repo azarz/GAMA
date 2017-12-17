@@ -11,6 +11,11 @@ import org.opengis.geometry.BoundingBox;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.TransformException;
 
+/**
+ * Class to read raster files supported by GeoTools
+ * @author Amaury
+ *
+ */
 public final class RasterFileReader extends AbstractFileReader {
 
 	  /**
@@ -53,7 +58,7 @@ public final class RasterFileReader extends AbstractFileReader {
 				System.out.println("WARNING: Invalid CRS. Setting to default (EPSG:4326)");
 				projectionName = "EPSG:4326";
 			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			System.out.println("WARNING: Unable to read file " + filePath);
 			System.out.println("Setting bounds and projection to default values.");
 			
