@@ -10,7 +10,7 @@ public class RasterFileReaderTest {
 
 	@Test
 	public void geotiffReaderTest() throws IOException {
-		IFileReader readerTiff = new RasterFileReader("C:\\Users\\Amaury\\Documents\\ENSG\\it2\\Projet_localisation_risque_avalanche\\donnees test\\mnt\\RGEALTI_FXX_0960_6425_MNT_LAMB93_IGN69.tif");
+		IFileReader readerTiff = new RasterFileReader("src/test/resources/small_dem.tif");
 		
 		assertTrue(readerTiff.getxMax() > 964997.499);
 		assertTrue(readerTiff.getxMax() < 964997.501);
