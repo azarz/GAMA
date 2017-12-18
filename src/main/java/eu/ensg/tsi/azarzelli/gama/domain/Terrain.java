@@ -7,6 +7,7 @@ import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
 import eu.ensg.tsi.azarzelli.gama.io.AscWriter;
 import eu.ensg.tsi.azarzelli.gama.io.GeotiffWriter;
 import eu.ensg.tsi.azarzelli.gama.io.IFileReader;
+import eu.ensg.tsi.azarzelli.gama.io.IWriter;
 import eu.ensg.tsi.azarzelli.gama.io.RasterFileReader;
 import eu.ensg.tsi.azarzelli.gama.io.VectorFileReader;
 
@@ -197,6 +198,10 @@ public class Terrain {
 		return yMax;
 	}
 
+	public double getCellSize() {
+		return cellSize;
+	}
+
 	public String getProjectionName() {
 		return projectionName;
 	}
@@ -212,9 +217,9 @@ public class Terrain {
         generationStrategy.generate(matrix);
         
         // Application of the altitude factor
-        for (int i = 0; i<matrix.length; i++) {
-        	for (int j = 0; j<matrix[0].length; j++) {
-        		matrix[i][j] *= altitudeFactor;
+        for (int y = 0; y<matrix.length; y++) {
+        	for (int x = 0; y<matrix[0].length; y++) {
+        		matrix[y][x] *= altitudeFactor;
         	}
         }
     }
@@ -222,18 +227,20 @@ public class Terrain {
     /**
      * Writes the Terrain matrix into an asc file.
      * @param filepath: path of the file to write.
+     * @throws IOException 
      */
-    public void toAsc(String filepath) {
-        AscWriter writer = new AscWriter();
+    public void toAsc(String filepath) throws IOException {
+        IWriter writer = new AscWriter();
         writer.write(this, filepath);
     }
 
     /**
      * Writes the Terrain matrix into a geotiff file.
      * @param filepath: path of the file to write.
+     * @throws IOException 
      */
-    public void toGeotiff(String filepath) {
-    	GeotiffWriter writer = new GeotiffWriter();
+    public void toGeotiff(String filepath) throws IOException {
+    	IWriter writer = new GeotiffWriter();
         writer.write(this, filepath);
 
     }

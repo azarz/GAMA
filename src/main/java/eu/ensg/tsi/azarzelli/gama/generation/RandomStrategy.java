@@ -11,9 +11,9 @@ public final class RandomStrategy implements IGenerationStrategy {
      */
 	@Override
     public void generate(double[][] matrix) {
-        for (int i = 0; i<matrix.length; i++) {
-        	for (int j = 0; j<matrix[0].length; j++) {
-        		matrix[i][j] = Math.random();
+        for (int y = 0; y<matrix.length; y++) {
+        	for (int x = 0; x<matrix[0].length; x++) {
+        		matrix[y][x] = Math.random();
         	}
         }
     }

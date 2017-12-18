@@ -27,7 +27,11 @@ public class TerrainTest {
 	public void emptyTerrainTest() {
 		Terrain terrain = new Terrain(0,0,2,2,3);
 		terrain.generate();
-		terrain.toAsc("src/test/resources/foobar.asc");
+		try {
+			terrain.toAsc("src/test/resources/foobar.asc");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -71,9 +75,9 @@ public class TerrainTest {
 		
 		double sum = 0;
 		
-        for (int i = 0; i<terrain.getMatrix().length; i++) {
-        	for (int j = 0; j<terrain.getMatrix()[0].length; j++) {
-        		sum += terrain.getMatrix()[i][j] ;
+        for (int y = 0; y<terrain.getMatrix().length; y++) {
+        	for (int x = 0; x<terrain.getMatrix()[0].length; x++) {
+        		sum += terrain.getMatrix()[y][x] ;
         	}
         }
 		
@@ -82,6 +86,19 @@ public class TerrainTest {
 		
 		assertTrue(sum > 1);
 		assertTrue(sum < 10000);
+	}
+	
+	@Test
+	public void writeTest() throws IOException {
+		Terrain terrain = new Terrain("src/test/resources/dummyasc.asc", Terrain.RASTER_FILE);
+		terrain.toAsc("src/test/resources/dummyasc2.asc");
+		
+		Terrain terrain2 = new Terrain("src/test/resources/dummyasc2.asc", Terrain.RASTER_FILE);
+		
+		assertTrue(terrain2.getxMin() == terrain.getxMin());
+		assertTrue(terrain2.getyMax() == terrain.getyMax());
+		assertTrue(terrain2.getProjectionName().equals(terrain.getProjectionName()));
+		assertTrue(terrain2.getMatrix().equals(terrain.getMatrix()));
 	}
 
 }

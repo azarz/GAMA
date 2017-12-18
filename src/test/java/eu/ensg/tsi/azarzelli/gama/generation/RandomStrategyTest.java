@@ -15,9 +15,9 @@ public class RandomStrategyTest {
 		
 		double sum = 0;
 		
-        for (int i = 0; i<matrix.length; i++) {
-        	for (int j = 0; j<matrix[0].length; j++) {
-        		sum += matrix[i][j] ;
+        for (int y = 0; y<matrix.length; y++) {
+        	for (int x = 0; x<matrix[0].length; x++) {
+        		sum += matrix[y][x] ;
         	}
         }
 	    
