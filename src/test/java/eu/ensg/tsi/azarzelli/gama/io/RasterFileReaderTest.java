@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.azarzelli.gama.domain.Terrain;
+
 public class RasterFileReaderTest {
 
 	@Test
@@ -20,7 +22,7 @@ public class RasterFileReaderTest {
 		
 		assertTrue(readerTiff.getyMin() > -0.001);
 		assertTrue(readerTiff.getyMin() < 0.001);
-		assertTrue(readerTiff.getProjectionName().equals("EPSG:4326"));
+		assertTrue(readerTiff.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
 		
 	}
 

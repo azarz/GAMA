@@ -2,6 +2,8 @@ package eu.ensg.tsi.azarzelli.gama.domain;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
@@ -10,27 +12,57 @@ public class TerrainTest {
 
 	@Test
 	public void initializationSizeTest() {
-		double xMin = 0;
-		double yMin = 0;
-		double xMax = 100;
-		double yMax = 100;
-		
-		double cellSize = 1;
-		
-		Terrain terrain = new Terrain(xMin, yMin, xMax, yMax, cellSize);
+	
+		Terrain terrain = new Terrain(0, 0, 100, 100, 1);
 		
 		assertTrue(terrain.getMatrix().length == 100);
 		
-		terrain = new Terrain(xMin, yMin, 99.9, 99.9, cellSize);
+		terrain = new Terrain(0, 0, 99.9, 99.9, 1);
 		
 		assertTrue(terrain.getMatrix().length == 99);
 	}
+	
+	
+	@Test
+	public void emptyTerrainTest() {
+		Terrain terrain = new Terrain(0,0,2,2,3);
+		terrain.generate();
+		terrain.toAsc("src/test/resources/foobar.asc");
+	}
+	
 	
 	@Test
 	public void initializationStategyTest() {
 		Terrain terrain = new Terrain("random");
 		assertTrue(terrain.getGenerationStrategy() instanceof RandomStrategy);
 	}
+	
+	
+	@Test
+	public void initializationFromFileTest() throws IOException {
+		
+		Terrain terrain = new Terrain("src/test/resources/queyras.shp", Terrain.VECTOR_FILE);
+		assertTrue(terrain.getxMin() > 981592.174);
+		assertTrue(terrain.getxMin() < 981592.175);
+		assertTrue(terrain.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
+		
+		
+		terrain = new Terrain("src/test/resources/queyras.shp", Terrain.RASTER_FILE);
+		assertTrue(terrain.getMatrix().length == 1000);
+		assertTrue(terrain.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
+		
+		
+		terrain = new Terrain("foobar.txt", Terrain.RASTER_FILE);
+		assertTrue(terrain.getMatrix().length == 1000);
+		assertTrue(terrain.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
+		
+		
+		terrain = new Terrain("src/test/resources/small_dem.tif", Terrain.RASTER_FILE);
+		assertTrue(terrain.getxMax() > 964997.499);
+		assertTrue(terrain.getxMax() < 964997.501);
+		assertTrue(terrain.getProjectionName().equals("EPSG:4499"));
+	}
+	
 	
 	@Test
 	public void generateTest() {

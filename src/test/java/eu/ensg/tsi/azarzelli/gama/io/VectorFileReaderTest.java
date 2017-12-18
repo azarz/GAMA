@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.azarzelli.gama.domain.Terrain;
+
 public class VectorFileReaderTest {
 
 	@Test
@@ -20,13 +22,13 @@ public class VectorFileReaderTest {
 		
 		assertTrue(readerShp.getyMax() > 99.999);
 		assertTrue(readerShp.getyMax() < 100.001);
-		assertTrue(readerShp.getProjectionName().equals("EPSG:4326"));
+		assertTrue(readerShp.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
 		
 		readerShp = new VectorFileReader("src/test/resources/queyras.shp");
 		
 		assertTrue(readerShp.getxMin() > 981592.174);
 		assertTrue(readerShp.getxMin() < 981592.175);
-		assertTrue(readerShp.getProjectionName().equals("EPSG:4326"));
+		assertTrue(readerShp.getProjectionName().equals(Terrain.DEFAULT_PROJECTION));
 
 	}
 

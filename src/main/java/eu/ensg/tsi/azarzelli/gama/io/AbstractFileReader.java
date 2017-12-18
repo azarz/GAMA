@@ -1,5 +1,10 @@
 package eu.ensg.tsi.azarzelli.gama.io;
 
+/**
+ * Abstract class to generalize attributes and getter methods
+ * @author Amaury
+ *
+ */
 public abstract class AbstractFileReader implements IFileReader {
 
 	// Attributes -----------------------------------------

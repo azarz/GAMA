@@ -13,6 +13,8 @@ import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
+import eu.ensg.tsi.azarzelli.gama.domain.Terrain;
+
 /**
  * Class to read vector files supported by GeoTools
  * @author Amaury
@@ -59,8 +61,8 @@ public final class VectorFileReader extends AbstractFileReader {
 			try {
 				projectionName = dataCRS.getCoordinateSystem().getIdentifiers().toArray()[0].toString();
 			} catch (IndexOutOfBoundsException e) {
-				System.out.println("WARNING: Invalid CRS. Setting to default (EPSG:4326)");
-				projectionName = "EPSG:4326";
+				System.out.println("WARNING: Invalid CRS. Setting to default " + Terrain.DEFAULT_PROJECTION);
+				projectionName = Terrain.DEFAULT_PROJECTION;
 			}
 		} catch (Exception e) {
 			System.out.println("WARNING: Unable to read file " + filePath);
@@ -73,7 +75,7 @@ public final class VectorFileReader extends AbstractFileReader {
 			xMax = 100;
 			yMax = 100;
 			
-			projectionName = "EPSG:4326";
+			projectionName = Terrain.DEFAULT_PROJECTION;
 		}
 	}
 

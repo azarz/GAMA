@@ -1,7 +1,7 @@
 package eu.ensg.tsi.azarzelli.gama.generation;
 
 /**
- * 
+ * Strategy creating a fully random DEM
  */
 public final class RandomStrategy implements IGenerationStrategy {
 
