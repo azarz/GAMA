@@ -59,7 +59,7 @@ public final class VectorFileReader extends AbstractFileReader {
 			CoordinateReferenceSystem dataCRS = schema.getCoordinateReferenceSystem();
 			
 			try {
-				projectionName = dataCRS.getCoordinateSystem().getIdentifiers().toArray()[0].toString();
+				projectionName = dataCRS.getIdentifiers().toArray()[0].toString();
 			} catch (IndexOutOfBoundsException e) {
 				System.out.println("WARNING: Invalid CRS. Setting to default " + Terrain.DEFAULT_PROJECTION);
 				projectionName = Terrain.DEFAULT_PROJECTION;

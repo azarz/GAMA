@@ -29,6 +29,7 @@ public class TerrainTest {
 		terrain.generate();
 		try {
 			terrain.toAsc("src/test/resources/foobar.asc");
+			terrain.toGeotiff("src/test/resources/foobar.tif");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +65,7 @@ public class TerrainTest {
 		terrain = new Terrain("src/test/resources/small_dem.tif", Terrain.RASTER_FILE);
 		assertTrue(terrain.getxMax() > 964997.499);
 		assertTrue(terrain.getxMax() < 964997.501);
-		assertTrue(terrain.getProjectionName().equals("EPSG:4499"));
+		assertTrue(terrain.getProjectionName().equals("EPSG:2154"));
 	}
 	
 	
@@ -90,19 +91,16 @@ public class TerrainTest {
 	
 	@Test
 	public void readWriteTest() throws IOException {
-		Terrain terrain = new Terrain("src/test/resources/2154_test_shapefile.shp", Terrain.VECTOR_FILE);
+		Terrain terrain = new Terrain("src/test/resources/queyras.shp", Terrain.VECTOR_FILE);
 		terrain.generate();
 		terrain.toAsc("src/test/resources/dummyasc.asc");
 		
 		terrain.toGeotiff("src/test/resources/dummytiff.tif");
 		
 		Terrain terrain2 = new Terrain("src/test/resources/dummytiff.tif", Terrain.RASTER_FILE);
-		System.out.println(terrain.getProjectionName());
-		System.out.println(terrain2.getProjectionName());
 		assertTrue(terrain2.getxMin() <= terrain.getxMin() + 0.001);
 		assertTrue(terrain2.getyMax() >= terrain.getyMin() + terrain.getMatrix().length * terrain.getCellSize() - 0.001);
-		// Never works (TODO: ask)
-		// assertTrue(terrain2.getProjectionName().equals(terrain.getProjectionName()));
+		assertTrue(terrain2.getProjectionName().equals(terrain.getProjectionName()));
 		
 		assertTrue(terrain2.getMatrix()[0][0] <= terrain.getMatrix()[0][0] + 0.001);
 	}

@@ -55,7 +55,7 @@ public final class RasterFileReader extends AbstractFileReader {
 			}
 			
 			try {
-				projectionName = crs.getCoordinateSystem().getIdentifiers().toArray()[0].toString();
+				projectionName = crs.getIdentifiers().toArray()[0].toString();
 			} catch (IndexOutOfBoundsException e) {
 				System.out.println("WARNING: Invalid CRS. Setting to default " + Terrain.DEFAULT_PROJECTION);
 				projectionName = Terrain.DEFAULT_PROJECTION;
