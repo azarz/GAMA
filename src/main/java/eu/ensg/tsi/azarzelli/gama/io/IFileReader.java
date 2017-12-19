@@ -9,6 +9,11 @@ import java.io.IOException;
  */
 public interface IFileReader {
 
+	/**
+	 * Reads a geographic file to get its extent and CRS.
+	 * @param filePath
+	 * @throws IOException
+	 */
 	public void read(String filePath) throws IOException;
 	
 	public double getxMin();

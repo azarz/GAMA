@@ -218,7 +218,7 @@ public class Terrain {
         
         // Application of the altitude factor
         for (int y = 0; y<matrix.length; y++) {
-        	for (int x = 0; y<matrix[0].length; y++) {
+        	for (int x = 0; x<matrix[0].length; x++) {
         		matrix[y][x] *= altitudeFactor;
         	}
         }
