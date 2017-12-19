@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 
 import eu.ensg.tsi.azarzelli.gama.domain.Terrain;
 
-public class AscWriterTest {
+public class GeotiffWriterTest {
 
 	@Test
 	public void ascWriterTest() {
@@ -22,13 +22,13 @@ public class AscWriterTest {
 		Mockito.when(terrain.getMatrix()).thenReturn(new double[100][100]);
 		Mockito.when(terrain.getCellSize()).thenReturn(1.);
 		
-		IWriter writer = new AscWriter();
+		IWriter writer = new GeotiffWriter();
 		try {
 			writer.write(terrain, "src/test/resources/test_dummyasc.asc");
 		} catch (IOException e) {
 			e.printStackTrace();
 			exceptionCount++;
-			}
+		}
 		
 		terrain = Mockito.mock(Terrain.class);
 

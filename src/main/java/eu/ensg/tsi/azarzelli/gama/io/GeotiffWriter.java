@@ -82,6 +82,8 @@ public class GeotiffWriter implements IWriter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+	    } catch (NullPointerException e) {
+        	System.out.println("ERROR: uninitialized Terrain, aborted writing");  
 	    } catch (IndexOutOfBoundsException e) {
 	    	System.out.println("ERROR: uninitialized Terrain, aborted writing"); 
 	    }
