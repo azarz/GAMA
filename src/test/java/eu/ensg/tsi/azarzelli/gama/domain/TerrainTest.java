@@ -1,11 +1,12 @@
 package eu.ensg.tsi.azarzelli.gama.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.azarzelli.gama.exceptions.FileTypeUnknownException;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
 
 public class TerrainTest {
@@ -103,6 +104,11 @@ public class TerrainTest {
 		assertTrue(terrain2.getProjectionName().equals(terrain.getProjectionName()));
 		
 		assertTrue(terrain2.getMatrix()[0][0] <= terrain.getMatrix()[0][0] + 0.001);
+	}
+	
+	@Test(expected = FileTypeUnknownException.class)
+	public void unknownFileTypeTest() throws IOException {
+		new Terrain("src/test/resources/queyras.shp", 3);
 	}
 	
 	@Test

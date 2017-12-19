@@ -4,8 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.azarzelli.gama.exceptions.GenerationMethodNotFoundException;
+import eu.ensg.tsi.azarzelli.gama.generation.DiamondSquareStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
+import eu.ensg.tsi.azarzelli.gama.generation.PerlinNoiseStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
+import eu.ensg.tsi.azarzelli.gama.generation.ValueNoiseStrategy;
 
 public class StrategyFactoryTest {
 
@@ -22,6 +26,21 @@ public class StrategyFactoryTest {
 		
 		strategy = factory.createStrategy("RANDOM");
 		assertTrue(strategy instanceof RandomStrategy);
+		
+		strategy = factory.createStrategy("perlinnoise");
+		assertTrue(strategy instanceof PerlinNoiseStrategy);
+		
+		strategy = factory.createStrategy("valuenoise");
+		assertTrue(strategy instanceof ValueNoiseStrategy);
+		
+		strategy = factory.createStrategy("diamondsquare");
+		assertTrue(strategy instanceof DiamondSquareStrategy);
+	}
+	
+	@Test(expected = GenerationMethodNotFoundException.class)
+	public void uknownMethodTest() {
+		StrategyFactory factory = new StrategyFactory();
+		factory.createStrategy("foobar");
 	}
 
 }

@@ -1,28 +1,17 @@
 package eu.ensg.tsi.azarzelli.gama.generation;
 
 /**
- * 
+ * Perlin noise DEM generation.
+ * Inspired by:
+ * http://flafla2.github.io/2014/08/09/perlinnoise.html
+ * https://openclassrooms.com/courses/bruit-de-perlin
  */
 public final class PerlinNoiseStrategy implements IGenerationStrategy {
 
-    /**
-     * @param matrix
-     */
-	@Override
-    public void generate(double[][] matrix) {
-		p = new int[512];
-		for(int i=0;i<512;i++) {
-			p[i] = permutation[i%256];
-		}
-		for (int y = 0; y < matrix.length; y++) {
-			for (int x = 0; x < matrix[0].length; x++) {
-				matrix[y][x] = octavePerlinNoise(x,y);
-			}
-		}
-    }
-	
-	// Hash lookup table as defined by Ken Perlin.  This is a randomly
-	// arranged array of all numbers from 0-255 inclusive.
+	/**
+	 * Hash lookup table as defined by Ken Perlin.  This is a randomly
+	 * arranged array of all numbers from 0-255 inclusive.
+	 */ 
 	private static int[] permutation = { 151,160,137,91,90,15,						
 			131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,	
 			190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
@@ -38,13 +27,46 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 			138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
 	};
 	
+	/**
+	 *  Doubled permutation to avoid overflow
+	 */
+	private static int[] p; 	
+	
+	/**
+     * Fills the matrix with Perlin noise generated values
+     * @param matrix
+     */
+	@Override
+    public void generate(double[][] matrix) {
+		p = new int[512];
+		for(int i=0;i<512;i++) {
+			p[i] = permutation[i%256];
+		}
+		for (int y = 0; y < matrix.length; y++) {
+			for (int x = 0; x < matrix[0].length; x++) {
+				matrix[y][x] = octavePerlinNoise(x,y);
+			}
+		}
+    }
+	
+	/**
+	 * Generates a Perlin noise value at (x, y) using several (5) octaves
+	 * @param x
+	 * @param y
+	 * @return Perlin noise value at (x,y)
+	 */
 	public double octavePerlinNoise(double x, double y) {
+		// Relative importance of each iterative octave
 		double persistence = 0.5;
+		// Number of octaves
 		double octaves = 5;
+		// Final value at (x, y)
 	    double total = 0;
 	    double frequency = 0.1;
 	    double amplitude = 1;
-	    double maxValue = 0;  // Used for normalizing result to 0.0 - 1.0
+	    // Used for normalizing result to 0.0 - 1.0
+	    double maxValue = 0;
+	    
 	    for(int i=0;i<octaves;i++) {
 	        total += perlinNoise(x*frequency, y*frequency) * amplitude;
 	        
@@ -56,19 +78,21 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	    
 	    return total/maxValue;
 	}
-	
-	// Doubled permutation to avoid overflow
-	private static int[] p; 													
-	
-	
+					
+	/**
+	 * Generates a single octave Perlin noise value at (x, y)
+	 * @param x
+	 * @param y
+	 * @return Perlin noise value at (x,y)
+	 */
 	public double perlinNoise(double x, double y) {
 
 		double unit = 1.0 / Math.sqrt(2);
 		double gradient2[][] = {{unit,unit},{-unit,unit},{unit,-unit},{-unit,-unit},
 				{1,0},{-1,0},{0,1},{0,-1}};
 
-		// Calculate the "unit cube" that the point asked will be located in
-		// The left bound is ( |_x_|,|_y_|,|_z_| ) and the right bound is that
+		// Calculate the "unit square" that the point asked will be located in
+		// The left bound is ( |_x_|,|_y_| ) and the right bound is that
 		// plus 1.  Next we calculate the location (from 0.0 to 1.0) in that cube.
 		// We also fade the location to smooth the result.
 		int x0 = (int)x;
@@ -77,8 +101,6 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 		int yi = y0 & 255;							
 		double xf = x-(int)x;								
 		double yf = y-(int)y;
-		//double u = fade(xf);
-		//double v = fade(yf);
 								
 		int aa, ab, ba, bb;
 		aa = p[p[yi]  + xi  ] % 8;
@@ -104,25 +126,39 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	    double v = gradient2[bb][0]*tempX + gradient2[bb][1]*tempY;
 	    
 
-	    //Lissage
-	    double Cx = fade(xf);
+	    // Smoothing
+	    double fadedX = fade(xf);
 
-	    double Li1 = lerp(s,t,Cx);
-	    double Li2 = lerp(u,v,Cx);
+	    double lerp1 = lerp(s,t,fadedX);
+	    double lerp2 = lerp(u,v,fadedX);
 
-	    double Cy = fade(yf);
+	    double fadedY = fade(yf);
 
-	    return (lerp(Li1,Li2,Cy)+1)/2;						
+	    // Bilinear interpolation
+	    return (lerp(lerp1,lerp2,fadedY)+1)/2;						
 	}
 	
+	/**
+	 * Fade function as defined by Ken Perlin.  This eases coordinate values													
+	 * so that they will "ease" towards integral values.  This ends up smoothing													
+	 * the final output.
+	 * @param t
+	 * @return 6t^5 - 15t^4 + 10t^3
+	 */
 	public static double fade(double t) {
-		// Fade function as defined by Ken Perlin.  This eases coordinate values													
-		// so that they will "ease" towards integral values.  This ends up smoothing													
-		// the final output.
-		// 6t^5 - 15t^4 + 10t^3
 		return t * t * t * (t * (t * 6. - 15.) + 10.);			
 	}
 	
+	/**
+	 * Linear interpolation of x between a and b
+	 * .______.___.
+	 * a      x   b
+	 * 
+	 * @param a
+	 * @param b
+	 * @param x
+	 * @return interpolated value of x
+	 */
 	public static double lerp(double a, double b, double x) {
 		return a + x * (b - a);
 	}

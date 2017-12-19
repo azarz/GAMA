@@ -12,7 +12,7 @@ import eu.ensg.tsi.azarzelli.gama.io.RasterFileReader;
 import eu.ensg.tsi.azarzelli.gama.io.VectorFileReader;
 
 /**
- * 
+ * Main class. Used to generate procedural DEMs from files, extent or generation method.
  */
 public class Terrain {
 
