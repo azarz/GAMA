@@ -42,6 +42,7 @@ public class GeotiffWriter implements IWriter {
 		    
 	        WritableRaster raster = RasterFactory.createBandedRaster(DataBuffer.TYPE_FLOAT, ncols, nrows, 1, null);
 	        
+	        // Setting the raster values
 			for (int x = 0; x < ncols; x++) {
 				for (int y=0; y < nrows; y++) {
 					raster.setSample(x, y, 0, matrix[y][x]);
@@ -58,7 +59,9 @@ public class GeotiffWriter implements IWriter {
 			} catch (FactoryException e1) {
 				e1.printStackTrace();
 			}
-	        	
+	        
+			// Calculating the bounds. The top right corner is not (xMax, yMax) because
+			// of the cellsize
 			Rectangle2D bounds = new Rectangle2D.Double(terrain.getxMin(), terrain.getyMin(), terrain.getCellSize() * ncols,
 					terrain.getCellSize() * nrows);
 			

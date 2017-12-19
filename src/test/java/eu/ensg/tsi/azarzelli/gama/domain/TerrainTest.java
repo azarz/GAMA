@@ -104,5 +104,12 @@ public class TerrainTest {
 		
 		assertTrue(terrain2.getMatrix()[0][0] <= terrain.getMatrix()[0][0] + 0.001);
 	}
+	
+	@Test
+	public void perlinTest() throws IOException {
+		Terrain terrain = new Terrain("perlinnoise");
+		terrain.generate();
+		terrain.toGeotiff("src/test/resources/perlin.tif");
+	}
 
 }

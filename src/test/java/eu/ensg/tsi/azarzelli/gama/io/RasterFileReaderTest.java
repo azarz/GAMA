@@ -21,7 +21,7 @@ public class RasterFileReaderTest {
 		
 		assertTrue(readerTiff.getxMax() > 964997.499);
 		assertTrue(readerTiff.getxMax() < 964997.501);
-		assertTrue(readerTiff.getProjectionName().equals("EPSG:4499"));
+		assertTrue(readerTiff.getProjectionName().equals("EPSG:2154"));
 		
 		try {
 			readerTiff = new RasterFileReader("foobar.tif");
