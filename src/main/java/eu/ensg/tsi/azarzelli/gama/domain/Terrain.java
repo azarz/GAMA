@@ -113,16 +113,42 @@ public class Terrain {
 	public Terrain(double xMin, double yMin, double xMax, double yMax,
 			double cellSize) {
 		
-		this(xMin,yMin,xMax,yMax,cellSize,Terrain.DEFAULT_PROJECTION,1.,"random");
+		this(xMin,yMin,xMax,yMax,cellSize,Terrain.DEFAULT_PROJECTION,1.,"perlinnoise");
+	}
+	
+	/**
+     * Constructor from the DEM bounds, the cell size and a generation method name
+     * @param xMin
+     * @param yMin
+     * @param xMax
+     * @param yMax
+     * @param cellSize
+     * @param generationStrategyName
+     */
+	public Terrain(double xMin, double yMin, double xMax, double yMax,
+			double cellSize, String generationStrategyName) {
+		
+		this(xMin,yMin,xMax,yMax,cellSize,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
 	}
 	
 	/**
 	 * Constructor using only a generation strategy name
+	 * @param generationStrategyName
 	 */
 	public Terrain(String generationStrategyName) {
 		this(0.,0.,100.,100.,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
 	}
 
+	/**
+	 * Constructor using a generation strategy name and a number of rows/columns
+	 * @param generationStrategyName
+	 * @param nrows
+	 * @param ncols
+	 */
+	public Terrain(String generationStrategyName, int nrows, int ncols) {
+		this(0.,0.,ncols,nrows,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
+	}
+	
 	/**
 	 * Generic constructor from a geographic file 
 	 * @param filename
@@ -169,7 +195,7 @@ public class Terrain {
 	 * @throws IOException 
 	 */
 	public Terrain(String filename, int filetype) throws IOException {
-		this(filename, filetype, 1., "random");
+		this(filename, filetype, 1., "perlinnoise");
 	}
 	
 	// Getters --------------------------------------------

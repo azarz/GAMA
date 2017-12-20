@@ -1,6 +1,6 @@
 package eu.ensg.tsi.azarzelli.gama.generation;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -8,10 +8,10 @@ public class PerlinNoiseStrategyTest {
 
 	@Test
 	public void testValues() {
-		RandomStrategy randomStrat = new RandomStrategy();
+		PerlinNoiseStrategy perlinStrat = new PerlinNoiseStrategy();
 		double[][] matrix = new double[100][100];
 		
-		randomStrat.generate(matrix);
+		perlinStrat.generate(matrix);
 		
 		double sum = 0;
 		

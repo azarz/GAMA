@@ -117,5 +117,12 @@ public class TerrainTest {
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/perlin.tif");
 	}
+	
+	@Test
+	public void diamondSquareTest() throws IOException {
+		Terrain terrain = new Terrain("diamondsquare");
+		terrain.generate();
+		terrain.toGeotiff("src/test/resources/diamondsquare.tif");
+	}
 
 }

@@ -55,7 +55,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * @param y
 	 * @return Perlin noise value at (x,y)
 	 */
-	public double octavePerlinNoise(double x, double y) {
+	private double octavePerlinNoise(double x, double y) {
 		// Relative importance of each iterative octave
 		double persistence = 0.5;
 		// Number of octaves
@@ -85,7 +85,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * @param y
 	 * @return Perlin noise value at (x,y)
 	 */
-	public double perlinNoise(double x, double y) {
+	private double perlinNoise(double x, double y) {
 
 		double unit = 1.0 / Math.sqrt(2);
 		double gradient2[][] = {{unit,unit},{-unit,unit},{unit,-unit},{-unit,-unit},
@@ -145,7 +145,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * @param t
 	 * @return 6t^5 - 15t^4 + 10t^3
 	 */
-	public static double fade(double t) {
+	private static double fade(double t) {
 		return t * t * t * (t * (t * 6. - 15.) + 10.);			
 	}
 	
@@ -159,7 +159,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * @param x
 	 * @return interpolated value of x
 	 */
-	public static double lerp(double a, double b, double x) {
+	private static double lerp(double a, double b, double x) {
 		return a + x * (b - a);
 	}
 
