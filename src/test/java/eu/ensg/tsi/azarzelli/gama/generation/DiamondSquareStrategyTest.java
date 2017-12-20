@@ -24,13 +24,14 @@ public class DiamondSquareStrategyTest {
         }
 	    
 		assertTrue(matrix[0][0] >= 0);
-		assertTrue(matrix[0][0] < 1);
+		assertTrue(matrix[0][0] <= 1);
 		assertTrue(sum > 1);
 		assertTrue(sum < 10000);
 	}
 	
 	@Test
 	public void testRectangle() {
+		dsStrat = new DiamondSquareStrategy();
 		
 		double[][] matrix = new double[100][50];
 		
@@ -45,7 +46,7 @@ public class DiamondSquareStrategyTest {
         }
 	    
 		assertTrue(matrix[0][0] >= 0);
-		assertTrue(matrix[0][0] < 1);
+		assertTrue(matrix[0][0] <= 1);
 		assertTrue(sum > 1);
 		assertTrue(sum < 5000);
 	}

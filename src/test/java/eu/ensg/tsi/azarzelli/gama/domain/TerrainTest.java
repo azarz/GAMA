@@ -120,7 +120,7 @@ public class TerrainTest {
 	
 	@Test
 	public void diamondSquareTest() throws IOException {
-		Terrain terrain = new Terrain("diamondsquare");
+		Terrain terrain = new Terrain("diamondsquare",128,128);
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/diamondsquare.tif");
 	}

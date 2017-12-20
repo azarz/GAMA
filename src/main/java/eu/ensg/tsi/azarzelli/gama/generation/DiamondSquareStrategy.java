@@ -16,9 +16,14 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
         
         // Getting the largest dimension of the matrix
         int largestDimension = Math.max(nrows, ncols);
-        // Calculating the smallest power of 2 above the largest dimension
-        // using bitwise shift, and adding one
-        int powerOfTwoPlusOne = Integer.highestOneBit(largestDimension << 1) + 1;
+        
+        int powerOfTwoPlusOne = largestDimension + 1;
+        // Calculating the smallest power of 2 above the largest dimension 
+        // if it isn't a power of 2 itself using bitwise shift, and adding one
+        if (Integer.highestOneBit(largestDimension) != Integer.lowestOneBit(largestDimension)) {
+        	powerOfTwoPlusOne = Integer.highestOneBit(largestDimension << 1) + 1;
+        } 
+        
         
         double[][] firstSquare = new double[powerOfTwoPlusOne][powerOfTwoPlusOne];
         
@@ -75,6 +80,7 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
         	stepSize /= 2;
         }
         
+        
         // Fetching the maximum and minimum values of the array to rescale
         // the values between 0 and 1
         double minimumValue = firstSquare[0][0];
@@ -91,12 +97,14 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
         	}
         }
         
+        // Rescaling
         for (int i = 0; i < firstSquare.length; i++) {
         	for (int j = 0; j < firstSquare[0].length; j++) {
         		firstSquare[i][j] = (firstSquare[i][j] - minimumValue)/(maximumValue - minimumValue);
         	}
         }
 	}
+	
 	
 	/**
 	 * Diamond step of the algorithm: setting from a square center position (i,j)
@@ -108,7 +116,7 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
 	 */
 	private void diamondStep(double[][] matrix, int i, int j, int stepSize) {
 		
-		double average = matrix[i][j] + matrix[i][j + stepSize]
+		double average = matrix[i][j]     + matrix[i][j + stepSize]
 				+ matrix[i + stepSize][j] + matrix[i + stepSize][j + stepSize];
 		average /= 4;
 		
@@ -133,13 +141,27 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
 		// is a square
 		int matrixWidth = matrix.length - 1;
 		
-		// Wrapping the indices using wrapIndex() ensures not going out of bounds
-		// and enables wrapping
-		double average = matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] + 
-				matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
-				matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
-				matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
-		average /= 4;
+		double average;
+		
+		// Handling limit cases
+		if (i==0) {
+			average = matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] + 
+					matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
+					matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
+			average /= 3;
+		} else if (j==0) {
+			average = matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
+					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
+					matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
+			average /= 3;
+		} else {
+			// Wrapping the indices using wrapIndex() ensures not going out of bounds
+			average = matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] + 
+					matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
+					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
+					matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
+			average /= 4;
+		}
 		
 		double randomValue = (Math.random() * 2 - 1) * semiStepSize;
 		
