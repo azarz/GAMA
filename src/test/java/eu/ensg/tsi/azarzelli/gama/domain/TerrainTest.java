@@ -128,5 +128,13 @@ public class TerrainTest {
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/diamondsquare1000.tif");
 	}
+	
+	@Test
+	public void randomNoiseTest() throws IOException {
+		Terrain terrain = new Terrain("randomnoise",256,256);
+		terrain.generate();
+		terrain.toGeotiff("src/test/resources/randomnoise.tif");
+
+	}
 
 }
