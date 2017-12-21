@@ -11,7 +11,7 @@ public interface IFileReader {
 
 	/**
 	 * Reads a geographic file to get its extent and CRS.
-	 * @param filePath
+	 * @param filePath path of the file to read
 	 * @throws IOException
 	 */
 	public void read(String filePath) throws IOException;

@@ -12,7 +12,8 @@ import eu.ensg.tsi.azarzelli.gama.io.RasterFileReader;
 import eu.ensg.tsi.azarzelli.gama.io.VectorFileReader;
 
 /**
- * Main class. Used to generate procedural DEMs from files, extent or generation method.
+ * Main class, used to generate procedural DEMs from files, extent or generation method.
+ * It can also export them.
  */
 public class Terrain {
 
@@ -104,11 +105,11 @@ public class Terrain {
     
     /**
      * Constructor from the DEM bounds and the cell size
-     * @param xMin
-     * @param yMin
-     * @param xMax
-     * @param yMax
-     * @param cellSize
+     * @param xMin minimum x coordinate wanted
+     * @param yMin minimum y coordinate wanted
+     * @param xMax maximum x coordinate wanted
+     * @param yMax maximum y coordinate wanted
+     * @param cellSize size of a cell, in the same units as x and y
      */
 	public Terrain(double xMin, double yMin, double xMax, double yMax,
 			double cellSize) {
@@ -118,12 +119,13 @@ public class Terrain {
 	
 	/**
      * Constructor from the DEM bounds, the cell size and a generation method name
-     * @param xMin
-     * @param yMin
-     * @param xMax
-     * @param yMax
-     * @param cellSize
-     * @param generationStrategyName
+     * @param xMin minimum x coordinate wanted
+     * @param yMin minimum y coordinate wanted
+     * @param xMax maximum x coordinate wanted
+     * @param yMax maximum y coordinate wanted
+     * @param cellSize size of a cell, in the same units as x and y
+     * @param generationStrategyName name of the generation strategy (either random, randomNoise,
+	 * perlinNoise or DiamondSquare
      */
 	public Terrain(double xMin, double yMin, double xMax, double yMax,
 			double cellSize, String generationStrategyName) {
@@ -133,7 +135,8 @@ public class Terrain {
 	
 	/**
 	 * Constructor using only a generation strategy name
-	 * @param generationStrategyName
+	 * @param generationStrategyName name of the generation strategy (either random, randomNoise,
+	 * perlinNoise or DiamondSquare
 	 */
 	public Terrain(String generationStrategyName) {
 		this(0.,0.,100.,100.,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
@@ -141,9 +144,10 @@ public class Terrain {
 
 	/**
 	 * Constructor using a generation strategy name and a number of rows/columns
-	 * @param generationStrategyName
-	 * @param nrows
-	 * @param ncols
+	 * @param generationStrategyName name of the generation strategy (either random, randomNoise,
+	 * perlinNoise or DiamondSquare
+	 * @param nrows number of wanted rows
+	 * @param ncols  number of wanted columns
 	 */
 	public Terrain(String generationStrategyName, int nrows, int ncols) {
 		this(0.,0.,ncols,nrows,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
@@ -151,8 +155,8 @@ public class Terrain {
 	
 	/**
 	 * Generic constructor from a geographic file 
-	 * @param filename
-	 * @param filetype
+	 * @param filename full file path
+	 * @param filetype type of the file, either Terrain.RASTER_FILE or Terrain.VECTOR_FILE
 	 * @throws IOException 
 	 */
 	public Terrain(String filename, int filetype, double altitudeFactor, 
@@ -190,8 +194,8 @@ public class Terrain {
 	
 	/**
 	 * Constructor from a geographic file with default values
-	 * @param filename
-	 * @param filetype
+	 * @param filename full file path
+	 * @param filetype type of the file, either Terrain.RASTER_FILE or Terrain.VECTOR_FILE
 	 * @throws IOException 
 	 */
 	public Terrain(String filename, int filetype) throws IOException {
@@ -234,6 +238,12 @@ public class Terrain {
 
 	// Setters --------------------------------------------
 	
+	/**
+	 * Sets the altitude factor, to multiply the default results (between 0 and 1)
+     * and obtain realistic altitudes. Corresponds to the maximum
+     * altitude wanted.
+	 * @param altitudeFactor
+	 */
 	public void setAltitudeFactor(double altitudeFactor) {
 		this.altitudeFactor = altitudeFactor;
 	}
@@ -258,7 +268,7 @@ public class Terrain {
 
     /**
      * Writes the Terrain matrix into an asc file.
-     * @param filepath: path of the file to write.
+     * @param filepath path of the file to write.
      * @throws IOException 
      */
     public void toAsc(String filepath) throws IOException {
@@ -268,7 +278,7 @@ public class Terrain {
 
     /**
      * Writes the Terrain matrix into a geotiff file.
-     * @param filepath: path of the file to write.
+     * @param filepath path of the file to write.
      * @throws IOException 
      */
     public void toGeotiff(String filepath) throws IOException {

@@ -7,7 +7,7 @@ public interface IGenerationStrategy {
 
     /**
      * Fills a matrix with generated values
-     * @param matrix
+     * @param matrix the double 2d array to fill
      */
     public void generate(double[][] matrix);
 

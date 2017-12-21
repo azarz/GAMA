@@ -34,7 +34,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	
 	/**
      * Fills the matrix with Perlin noise generated values
-     * @param matrix
+     * @param matrix the double 2d array to fill
      */
 	@Override
     public void generate(double[][] matrix) {
@@ -51,8 +51,8 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	
 	/**
 	 * Generates a Perlin noise value at (x, y) using several (5) octaves
-	 * @param x
-	 * @param y
+	 * @param x column index
+	 * @param y row index
 	 * @return Perlin noise value at (x,y)
 	 */
 	private double octavePerlinNoise(double x, double y) {
@@ -81,8 +81,8 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 					
 	/**
 	 * Generates a single octave Perlin noise value at (x, y)
-	 * @param x
-	 * @param y
+	 * @param x column index
+	 * @param y row index
 	 * @return Perlin noise value at (x,y)
 	 */
 	private double perlinNoise(double x, double y) {
@@ -142,7 +142,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * Fade function as defined by Ken Perlin.  This eases coordinate values													
 	 * so that they will "ease" towards integral values.  This ends up smoothing													
 	 * the final output.
-	 * @param t
+	 * @param t the double value to fade
 	 * @return 6t^5 - 15t^4 + 10t^3
 	 */
 	private static double fade(double t) {
@@ -154,10 +154,10 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 	 * .______.___.
 	 * a      x   b
 	 * 
-	 * @param a
-	 * @param b
-	 * @param x
-	 * @return interpolated value of x
+	 * @param a 1st value
+	 * @param b 2nd value
+	 * @param x the value to interpolate between a and b
+	 * @return interpolated value
 	 */
 	private static double lerp(double a, double b, double x) {
 		return a + x * (b - a);

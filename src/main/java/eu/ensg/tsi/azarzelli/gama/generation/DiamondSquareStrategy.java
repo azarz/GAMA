@@ -7,7 +7,7 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
 
     /**
      * Fills a matrix with diamond square generated values
-     * @param matrix
+     * @param matrix the double 2d array to fill
      */
 	@Override
     public void generate(double[][] matrix) {
@@ -172,7 +172,7 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
 	 * Allows an index to be out of bounds by wrapping the matrix
 	 * @param index index to wrap
 	 * @param width matrix width minus 1 (to have 2^n)
-	 * @return
+	 * @return the wrapped index
 	 */
 	private int wrapIndex(int index, int width) {
 		if (index == width) {

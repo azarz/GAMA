@@ -7,7 +7,7 @@ public final class RandomNoiseStrategy implements IGenerationStrategy {
 
     /**
      * Fills a matrix with generated values
-     * @param matrix
+     * @param matrix the double 2d array to fill
      */
     @Override
     public void generate(double[][] matrix) {
@@ -73,11 +73,11 @@ public final class RandomNoiseStrategy implements IGenerationStrategy {
     }
     
     /**
-     * Iterates the random interpolated noise on several octaves (util reaching a period
+     * Iterates the random interpolated noise on several octaves (until reaching a period
      * of 1 pixel)
      * @param x column index
      * @param y row index
-     * @param matrix
+     * @param matrix the double 2d array to fill
      * @return the computed random noise value
      */
     private double octaveIteration(double x, double y, double[][] matrix){
@@ -98,7 +98,7 @@ public final class RandomNoiseStrategy implements IGenerationStrategy {
      * Calculates a smooth, interpolated noise from random values
      * @param x column index
      * @param y row index
-     * @param matrix
+     * @param matrix the double 2d array to fill
      * @return interpolated random noise value
      */
     private double interpolatedNoise(double x, double y, double[][] matrix) {
