@@ -136,3 +136,6 @@ terrain.toGeotiff("/chemin/vers/mon/nouveau/fichier.tif");
 ```
 
 Vous n'avez plus qu'à ouvrir le fichier obtenu dans votre SIG préféré (ici, QGIS), et utiliser par exemple des outils de visualisation 3D (ici, Qgis2threejs) pour admirer le résultat du calcul.
+
+Exemple de MNT calculé par bruit de Perlin sur un carré de 256x256 pixels
+![superbe MNT généré par bruit de perlin sur un carré de 256*256](doc/perlin256.png "superbe MNT généré par bruit de perlin sur un carré de 256*256")
