@@ -49,9 +49,9 @@ public final class AscWriter implements IWriter {
             }
                
         } catch (NullPointerException e) {
-        	System.out.println("ERROR: uninitialized Terrain, aborted writing");  
+        	System.out.println("WARNING: uninitialized Terrain, aborted writing");  
         } catch (IndexOutOfBoundsException e) {
-        	System.out.println("ERROR: uninitialized Terrain, aborted writing");
+        	System.out.println("WARNING: uninitialized Terrain, aborted writing");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

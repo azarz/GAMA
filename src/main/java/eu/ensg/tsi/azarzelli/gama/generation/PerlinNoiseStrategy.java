@@ -62,7 +62,7 @@ public final class PerlinNoiseStrategy implements IGenerationStrategy {
 		double octaves = 5;
 		// Final value at (x, y)
 	    double total = 0;
-	    double frequency = 0.1;
+	    double frequency = 0.015625; // 1/64
 	    double amplitude = 1;
 	    // Used for normalizing result to 0.0 - 1.0
 	    double maxValue = 0;

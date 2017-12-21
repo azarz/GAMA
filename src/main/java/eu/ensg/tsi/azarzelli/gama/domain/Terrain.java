@@ -3,6 +3,7 @@ package eu.ensg.tsi.azarzelli.gama.domain;
 import java.io.IOException;
 
 import eu.ensg.tsi.azarzelli.gama.exceptions.FileTypeUnknownException;
+import eu.ensg.tsi.azarzelli.gama.exceptions.GenerationMethodNotFoundException;
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
 import eu.ensg.tsi.azarzelli.gama.io.AscWriter;
 import eu.ensg.tsi.azarzelli.gama.io.GeotiffWriter;
@@ -139,7 +140,7 @@ public class Terrain {
 	 * perlinNoise or DiamondSquare
 	 */
 	public Terrain(String generationStrategyName) {
-		this(0.,0.,100.,100.,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
+		this(0,0,256,256,1,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
 	}
 
 	/**
@@ -150,7 +151,7 @@ public class Terrain {
 	 * @param ncols  number of wanted columns
 	 */
 	public Terrain(String generationStrategyName, int nrows, int ncols) {
-		this(0.,0.,ncols,nrows,1.,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
+		this(0,0,ncols,nrows,1,Terrain.DEFAULT_PROJECTION,1,generationStrategyName);
 	}
 	
 	/**
@@ -159,7 +160,7 @@ public class Terrain {
 	 * @param filetype type of the file, either Terrain.RASTER_FILE or Terrain.VECTOR_FILE
 	 * @throws IOException 
 	 */
-	public Terrain(String filename, int filetype, double altitudeFactor, 
+	public Terrain(String filename, int filetype, 
 			String generationStrategyName) throws IOException {
 		
 		IFileReader reader;
@@ -177,7 +178,7 @@ public class Terrain {
 		yMax = reader.getyMax();
 		
 		projectionName = reader.getProjectionName();
-		this.altitudeFactor = altitudeFactor;
+		this.altitudeFactor = 1;
 		
 		// Default: 1000 columns
 		this.cellSize = (xMax-xMin)/1000;
@@ -199,7 +200,7 @@ public class Terrain {
 	 * @throws IOException 
 	 */
 	public Terrain(String filename, int filetype) throws IOException {
-		this(filename, filetype, 1., "perlinnoise");
+		this(filename, filetype, "perlinnoise");
 	}
 	
 	// Getters --------------------------------------------
@@ -246,6 +247,19 @@ public class Terrain {
 	 */
 	public void setAltitudeFactor(double altitudeFactor) {
 		this.altitudeFactor = altitudeFactor;
+	}
+	
+	/**
+	 * Sets the generation method from its name
+	 * @param generationStrategyName
+	 */
+	public void setGenerationMethod(String generationStrategyName) {
+		try {
+			StrategyFactory factory = new StrategyFactory();
+			this.generationStrategy = factory.createStrategy(generationStrategyName);
+		} catch (GenerationMethodNotFoundException e) {
+			System.out.println("WARNING: unknown generation method. Initial generation method unchanged");
+		}
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import eu.ensg.tsi.azarzelli.gama.exceptions.FileTypeUnknownException;
+import eu.ensg.tsi.azarzelli.gama.generation.DiamondSquareStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
 
 public class TerrainTest {
@@ -87,7 +88,7 @@ public class TerrainTest {
 		assertTrue(terrain.getMatrix()[0][0] < 1);
 		
 		assertTrue(sum > 1);
-		assertTrue(sum < 10000);
+		assertTrue(sum < 256*256);
 	}
 	
 	@Test
@@ -120,7 +121,7 @@ public class TerrainTest {
 	
 	@Test
 	public void diamondSquareTest() throws IOException {
-		Terrain terrain = new Terrain("diamondsquare",128,128);
+		Terrain terrain = new Terrain("diamondsquare",256,256);
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/diamondsquare.tif");
 		
@@ -135,6 +136,17 @@ public class TerrainTest {
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/randomnoise.tif");
 
+	}
+	
+	@Test
+	public void setGenerationStrategyTest() {
+		Terrain terrain = new Terrain("randomnoise");
+		terrain.setGenerationMethod("diamondSquare");
+		
+		assertTrue(terrain.getGenerationStrategy() instanceof DiamondSquareStrategy);
+		
+		terrain.setGenerationMethod("foobar");
+		assertTrue(terrain.getGenerationStrategy() instanceof DiamondSquareStrategy);
 	}
 
 }
