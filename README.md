@@ -64,4 +64,36 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
     ```
 
 
-+ Construction par les
++ Construction par les coordonnées du MNT :
+	```java
+	// Coordonnées du coin inférieur gauche
+	double xMin = 0;
+	double yMin = -15.5;
+
+	// Coordonnées du coin supérieur droit
+	double xMax = 320.12;
+	double yMax = 73;
+	
+	// Taille d'un pixel (dans les mêmes unités que les coordonnées)
+	double cellSize = 5.5;
+
+	Terrain monTerrain = new Terrain(xMin, yMin, xMax, yMax, cellSize);
+
+	```
+	Si vous voulez préciser le système de référence utilisé (par défaut il s'agit du web Mercator, EPSG:3857), faites-le en premier argument à l'aide d'une chaîne de caractères du type "EPSG:xxxx"
+	```java
+	Terrain monTerrain = new Terrain("EPSG:2154", xMin, yMin, xMax, yMax, cellSize);
+	```
+
+	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section "Modifier l'objet Terrain")
+
+
++ Construction à partir d'un fichier géographique :
+	```java
+	Terrain monTerrainDepuisUnRaster = new Terrain("/chemin/vers/mon/fichier.tif", Terrain.RASTER_FILE);
+	Terrain monTerrainDepuisUnVecteur = new Terrain("/chemin/vers/mon/fichier.shp", Terrain.VECTOR_FILE);
+	```
+	Les types supportés sont les types supportés par l'API GeoTools (http://docs.geotools.org/stable/userguide/geotools.html)
+
+
+

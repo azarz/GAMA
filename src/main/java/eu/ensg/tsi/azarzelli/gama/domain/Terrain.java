@@ -119,21 +119,20 @@ public class Terrain {
 	}
 	
 	/**
-     * Constructor from the DEM bounds, the cell size and a generation method name
+     * Constructor from the DEM CRS, bounds and cell size
+     * @param projection the CRS name
      * @param xMin minimum x coordinate wanted
      * @param yMin minimum y coordinate wanted
      * @param xMax maximum x coordinate wanted
      * @param yMax maximum y coordinate wanted
      * @param cellSize size of a cell, in the same units as x and y
-     * @param generationStrategyName name of the generation strategy (either random, randomNoise,
-	 * perlinNoise or DiamondSquare
      */
-	public Terrain(double xMin, double yMin, double xMax, double yMax,
-			double cellSize, String generationStrategyName) {
+	public Terrain(String projection, double xMin, double yMin, double xMax, double yMax,
+			double cellSize) {
 		
-		this(xMin,yMin,xMax,yMax,cellSize,Terrain.DEFAULT_PROJECTION,1.,generationStrategyName);
+		this(xMin,yMin,xMax,yMax,cellSize,projection,1.,"perlinnoise");
 	}
-	
+		
 	/**
 	 * Constructor using only a generation strategy name
 	 * @param generationStrategyName name of the generation strategy (either random, randomNoise,
@@ -160,8 +159,7 @@ public class Terrain {
 	 * @param filetype type of the file, either Terrain.RASTER_FILE or Terrain.VECTOR_FILE
 	 * @throws IOException 
 	 */
-	public Terrain(String filename, int filetype, 
-			String generationStrategyName) throws IOException {
+	public Terrain(String filename, int filetype) throws IOException {
 		
 		IFileReader reader;
 		if (filetype == Terrain.RASTER_FILE) {
@@ -189,18 +187,8 @@ public class Terrain {
 		this.matrix = new double[ySize][xSize];
 		
 		StrategyFactory factory = new StrategyFactory();
-		this.generationStrategy = factory.createStrategy(generationStrategyName);
+		this.generationStrategy = factory.createStrategy("perlinnoise");
 		
-	}
-	
-	/**
-	 * Constructor from a geographic file with default values
-	 * @param filename full file path
-	 * @param filetype type of the file, either Terrain.RASTER_FILE or Terrain.VECTOR_FILE
-	 * @throws IOException 
-	 */
-	public Terrain(String filename, int filetype) throws IOException {
-		this(filename, filetype, "perlinnoise");
 	}
 	
 	// Getters --------------------------------------------
