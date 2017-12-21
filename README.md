@@ -50,7 +50,7 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
     ```java
     Terrain monTerrain = newTerrain("PerlinNoise");
     ```
-    Ce constructeur prend en argument le nom de la méthode voulue (non     sensible à la casse) parmi
+    Ce constructeur prend en argument le nom de la méthode voulue (non sensible à la casse) parmi
 	+ PerlinNoise
 	+ RandomNoise
 	+ DiamondSquare
@@ -94,6 +94,45 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
 	Terrain monTerrainDepuisUnVecteur = new Terrain("/chemin/vers/mon/fichier.shp", Terrain.VECTOR_FILE);
 	```
 	Les types supportés sont les types supportés par l'API GeoTools (http://docs.geotools.org/stable/userguide/geotools.html)
+	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section "Modifier l'objet Terrain")
 
 
+#### Modifier l'objet Terrain
+##### Modifier la méthode de génération
+Pour changer l'algorithme de génération procédurale de terrain, utiliser la fonction
+```java
+terrain.setGenerationMethod("randomNoise");
+```
+Cette fonction prend en argument le nom de la méthode voulue (non sensible à la casse) parmi
++ PerlinNoise
++ RandomNoise
++ DiamondSquare
++ Random
+Si le nom donné en argument ne correspond à aucune des méthodes précédentes, on gardera la méthode de génération initiale.
 
+
+##### Ajouter un facteur d'altitude
+Par défaut, les MNT générés par un objet Terrain on des valeurs comprises entre 0 et 1.
+Si vous souhaitez obtenir des valeurs entre 0 et une altitude donnée différente de 1, utiliser la fonction suivante avant de générer le MNT :
+```java
+terrain.setAltitudeFactor(1826); // Pour avoir un terrain qui va aussi haut que la montagne de Lure !
+```
+
+#### Générer le MNT
+Une fois votre objet Terrain prêt à générer le MNT souhaité, utiliser la commande
+```java
+terrain.generate();
+```
+Et voilà ! Un MNT aléatoire a été calculé dans votre objet Terrain. Il ne reste plus qu'à...
+
+
+#### Exporter le MNT
+Pour exporter le MNT généré, utiliser les fonction suivantes :
+```java
+// Export au format asc
+terrain.toAsc("/chemin/vers/mon/nouveau/fichier.asc");
+// Export au format geotiff
+terrain.toGeotiff("/chemin/vers/mon/nouveau/fichier.tif");
+```
+
+Vous n'avez plus qu'à ouvrir le fichier obtenu dans votre SIG préféré (ici, QGIS), et utiliser par exemple des outils de visualisation 3D (ici, Qgis2threejs) pour admirer le résultat du calcul.
