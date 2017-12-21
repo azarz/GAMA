@@ -123,6 +123,10 @@ public class TerrainTest {
 		Terrain terrain = new Terrain("diamondsquare",128,128);
 		terrain.generate();
 		terrain.toGeotiff("src/test/resources/diamondsquare.tif");
+		
+		terrain.setAltitudeFactor(1000);
+		terrain.generate();
+		terrain.toGeotiff("src/test/resources/diamondsquare1000.tif");
 	}
 
 }

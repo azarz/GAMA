@@ -1907,11 +1907,11 @@
 											"containerExtending": false,
 											"left": 1077,
 											"top": 567,
-											"width": 125,
+											"width": 141,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "ValueNoiseStrategy",
+											"text": "RandomNoiseStrategy",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1979,7 +1979,7 @@
 									"containerExtending": false,
 									"left": 1072,
 									"top": 560,
-									"width": 135,
+									"width": 151,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -2015,7 +2015,7 @@
 									"containerExtending": false,
 									"left": 1072,
 									"top": 585,
-									"width": 135,
+									"width": 151,
 									"height": 10,
 									"autoResize": false
 								},
@@ -2039,7 +2039,7 @@
 									"containerExtending": false,
 									"left": 1072,
 									"top": 595,
-									"width": 135,
+									"width": 151,
 									"height": 10,
 									"autoResize": false
 								},
@@ -2103,7 +2103,7 @@
 							"containerExtending": false,
 							"left": 1072,
 							"top": 560,
-							"width": 135,
+							"width": 151,
 							"height": 45,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -9570,7 +9570,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ValueNoiseStrategy",
+					"name": "RandomNoiseStrategy",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",

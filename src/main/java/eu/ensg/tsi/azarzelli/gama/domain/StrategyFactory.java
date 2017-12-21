@@ -5,7 +5,7 @@ import eu.ensg.tsi.azarzelli.gama.generation.DiamondSquareStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.PerlinNoiseStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
-import eu.ensg.tsi.azarzelli.gama.generation.ValueNoiseStrategy;
+import eu.ensg.tsi.azarzelli.gama.generation.RandomNoiseStrategy;
 
 /**
  * Factory class for the strategies, used to encapsulate the creation
@@ -27,8 +27,8 @@ public class StrategyFactory {
         	return new DiamondSquareStrategy();
         } else if (strategyName.equals("perlinnoise")) {
         	return new PerlinNoiseStrategy();
-        } else if (strategyName.equals("valuenoise")) {
-        	return new ValueNoiseStrategy();
+        } else if (strategyName.equals("randomnoise")) {
+        	return new RandomNoiseStrategy();
         } else {
         	throw new GenerationMethodNotFoundException();
         }

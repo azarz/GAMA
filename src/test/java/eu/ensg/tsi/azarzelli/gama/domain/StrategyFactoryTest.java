@@ -9,7 +9,7 @@ import eu.ensg.tsi.azarzelli.gama.generation.DiamondSquareStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.IGenerationStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.PerlinNoiseStrategy;
 import eu.ensg.tsi.azarzelli.gama.generation.RandomStrategy;
-import eu.ensg.tsi.azarzelli.gama.generation.ValueNoiseStrategy;
+import eu.ensg.tsi.azarzelli.gama.generation.RandomNoiseStrategy;
 
 public class StrategyFactoryTest {
 
@@ -30,8 +30,8 @@ public class StrategyFactoryTest {
 		strategy = factory.createStrategy("perlinnoise");
 		assertTrue(strategy instanceof PerlinNoiseStrategy);
 		
-		strategy = factory.createStrategy("valuenoise");
-		assertTrue(strategy instanceof ValueNoiseStrategy);
+		strategy = factory.createStrategy("randomnoise");
+		assertTrue(strategy instanceof RandomNoiseStrategy);
 		
 		strategy = factory.createStrategy("diamondsquare");
 		assertTrue(strategy instanceof DiamondSquareStrategy);

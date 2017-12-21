@@ -232,6 +232,12 @@ public class Terrain {
 		return projectionName;
 	}
 
+	// Setters --------------------------------------------
+	
+	public void setAltitudeFactor(double altitudeFactor) {
+		this.altitudeFactor = altitudeFactor;
+	}
+	
 	
 	// Methods --------------------------------------------
 
