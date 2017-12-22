@@ -51,3 +51,16 @@ Les interfaces IWriter et IFileReader permettent la gestion de la lecture/écrit
 #### Patrons de conception utilisés
 + Patron stratégie, pour la gestion des différentes méthodes de génération au sein de la même classe centrale, sans que cette dernière ne soit responsable de l'implémentation de ces méthodes. L'interface IGenerationStrategy permet aussi l'ajout de nouvelles méthodes de génération de manière transparente pour la classe terrain, car la méthode Terrain.generate() appelle la fonction generate() de l'interface. 
 + Patron fabrique, pour pouvoir ajouter plus facilement des méthodes de génération de terrain, et pour pouvoir encapsuler la génération d'instances de classes stratégies pour l'utilisateur (utilisation d'un chaîne de caractère correspondant au nom de la stratégie plutôt qu'instanciation d'une classe).
+
+
+### Résultats obtenus :
+Voici les résultats obtenus pour les 3 méthodes de génération cohérente (l'aléatoire pur donnant un simple bruit blanc)
+
+Algorithme diamant-carré :
+![diamant carré](diamond.png "diamant carré")
+
+Bruit de Perlin : (on remarque que le résultat est à une échelle différente, "dézoomée")
+![perlin](perlin.png "perlin")
+
+Bruit aléatoire : (présence de nombreux artéfacts)
+![random noise](randomn.png "random noise")
