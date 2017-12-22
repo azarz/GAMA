@@ -154,8 +154,18 @@ public final class DiamondSquareStrategy implements IGenerationStrategy {
 					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
 					matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
 			average /= 3;
+		} else if (i==matrixWidth) {
+			average = matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
+					matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] +
+					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ];
+			average /= 3;
+		} else if (j==matrixWidth) {
+			average = matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] +
+					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
+					matrix[ wrapIndex(i + semiStepSize,matrixWidth) ][ j ];
+			average /= 3;
 		} else {
-			// Wrapping the indices using wrapIndex() ensures not going out of bounds
+
 			average = matrix[ i ][ wrapIndex(j - semiStepSize, matrixWidth) ] + 
 					matrix[ i ][ wrapIndex(j + semiStepSize, matrixWidth) ] +
 					matrix[ wrapIndex(i - semiStepSize,matrixWidth) ][ j ] + 
