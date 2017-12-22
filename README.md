@@ -8,19 +8,28 @@ La bibliothèque GAMA permet de générer aléatoirement des cartes d'élévatio
 + le bruit de Perlin,
 + la méthode diamant-carré,
 + un bruit par valeur aléatoire,
-+ un aléatoire pur (non recommendé).
++ un aléatoire pur (non recommandé).
 
 ### Prérequis
 
-+ JRE 8 ou plus récent
++ Java Development Kit (JDK) 8
 
 + (Conseillé) Maven
 
-### Installation à l'aide de maven
+### Installation à l'aide de Maven
+
+#### Depuis le répertoire du projet
 
 Après téléchargement et décompresion de l'archive du projet, ouvrir un terminal dans le dossier gama, et lancer la commande
 ```sh
 $ mvn install
+```
+
+#### Depuis le package .jar du projet (version 0.0.1-SNAPSHOT)
+
+Après téléchargment du package, ouvrir un terminal dans le dossier contenant le fichier .jar, et lancer la commande
+```sh
+$ mvn install:install-file -Dfile=gama-0.0.1-SNAPSHOT.jar -DgroupId=eu.ensg.tsi.azarzelli -DartifactId=gama -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
 ```
 
 ### Ajout de la dépendance à votre projet Maven (version 0.0.1-SNAPSHOT)
@@ -44,7 +53,7 @@ au début de votre fichier java utilisant la bibliothèque. (Votre IDE devrait v
 
 #### Construction de l'objet Terrain
 
-En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vous sont proposés :
+En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain sont disponibles :
 
 + Construction par la méthode de génération :
     ```java
@@ -60,7 +69,7 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
     ```java
     int monNombreDeLignes = 10;
     int monNombreDeColonnes = 200;
-    Terrain monTerrain = newTerrain("PerlinNoise", monNombreDeLignes,       monNombreDeColonnes);
+    Terrain monTerrain = newTerrain("PerlinNoise", monNombreDeLignes, monNombreDeColonnes);
     ```
 
 
@@ -85,7 +94,7 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
 	Terrain monTerrain = new Terrain("EPSG:2154", xMin, yMin, xMax, yMax, cellSize);
 	```
 
-	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section "Modifier l'objet Terrain")
+	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section ["Modifier l'objet Terrain"](#modifier-l'objet-terrain))
 
 
 + Construction à partir d'un fichier géographique :
@@ -94,7 +103,7 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain vo
 	Terrain monTerrainDepuisUnVecteur = new Terrain("/chemin/vers/mon/fichier.shp", Terrain.VECTOR_FILE);
 	```
 	Les types supportés sont les types supportés par l'API GeoTools (http://docs.geotools.org/stable/userguide/geotools.html)
-	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section "Modifier l'objet Terrain")
+	Par défaut, la méthode de génération du MNT est le bruit de Perlin. Cela est modifiable à l'aide un setter (section ["Modifier l'objet Terrain"](#modifier-l'objet-terrain))
 
 
 #### Modifier l'objet Terrain
@@ -112,7 +121,7 @@ Si le nom donné en argument ne correspond à aucune des méthodes précédentes
 
 
 ##### Ajouter un facteur d'altitude
-Par défaut, les MNT générés par un objet Terrain on des valeurs comprises entre 0 et 1.
+Par défaut, les MNT générés par un objet Terrain ont des valeurs comprises entre 0 et 1.
 Si vous souhaitez obtenir des valeurs entre 0 et une altitude donnée différente de 1, utiliser la fonction suivante avant de générer le MNT :
 ```java
 terrain.setAltitudeFactor(1826); // Pour avoir un terrain qui va aussi haut que la montagne de Lure !
