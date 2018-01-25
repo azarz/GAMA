@@ -13,4 +13,4 @@ jobs:
     - stage: test
       script: mvn test
     - stage: deploy
-      script: mvn deploy
+      script: mvn install
