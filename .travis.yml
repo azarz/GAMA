@@ -1,7 +1,16 @@
 language: java
+
+stages:
+  - compile
+  - test
+  - name: deploy
+    if: branch = master
+
 jobs:
   include:
-    - stage: build
+    - stage: compile
       script: mvn compile
     - stage: test
       script: mvn test
+    - stage: deploy
+      script: mvn deploy
