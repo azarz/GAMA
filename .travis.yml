@@ -1,5 +1,9 @@
 language: java
 
+jdk:
+  - openjdk8
+  - openjdk7
+
 stages:
   - compile
   - test
@@ -9,8 +13,15 @@ stages:
 jobs:
   include:
     - stage: compile
-      script: mvn compile
+      script:
+        -jdk_switcher use openjdk8
+        -mvn compile
     - stage: test
-      script: mvn test
+      script: 
+          -jdk_switcher use openjdk8
+          -mvn test
+      script: 
+          -jdk_switcher use openjdk7
+          -mvn test
     - stage: deploy
       script: mvn install
