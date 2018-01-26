@@ -4,7 +4,7 @@ dist: trusty
 
 jdk:
   - openjdk8
-  - openjdk7
+  - oraclejdk8
 
 stages:
   - compile
@@ -21,7 +21,7 @@ jobs:
           - jdk_switcher use openjdk8
           - mvn test
       script: 
-          - jdk_switcher use openjdk7
+          - jdk_switcher use oraclejdk8
           - mvn test
     - stage: deploy
       script: mvn install
