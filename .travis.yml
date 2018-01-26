@@ -1,5 +1,11 @@
 language: java
 
+dist: trusty
+
+jdk:
+  - openjdk8
+  - oraclejdk8
+
 stages:
   - compile
   - test
@@ -11,6 +17,11 @@ jobs:
     - stage: compile
       script: mvn compile
     - stage: test
-      script: mvn test
+      script: 
+          - jdk_switcher use openjdk8
+          - mvn test
+      script: 
+          - jdk_switcher use oraclejdk8
+          - mvn test
     - stage: deploy
-      script: mvn install
+script: mvn install
