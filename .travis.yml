@@ -2,6 +2,10 @@ language: java
 
 dist: trusty
 
+cache:
+  directories:
+  - $HOME/.m2
+
 jdk:
   - openjdk8
   - oraclejdk8
@@ -24,4 +28,4 @@ jobs:
           - jdk_switcher use oraclejdk8
           - mvn test
     - stage: deploy
-script: mvn install
+      script: mvn install
