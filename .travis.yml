@@ -22,6 +22,7 @@ jobs:
     - stage: compile
       script: mvn compile
     - stage: unit_test
+
       script: 
           - jdk_switcher use openjdk8
           - mvn test
