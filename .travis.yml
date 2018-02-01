@@ -22,11 +22,10 @@ jobs:
     - stage: compile
       script: mvn compile
     - stage: unit_test
-
-      script: 
+      - script: 
           - jdk_switcher use openjdk8
           - mvn test
-      script: 
+      - script: 
           - jdk_switcher use oraclejdk8
           - mvn test
     - stage: deploy
