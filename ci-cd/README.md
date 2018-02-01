@@ -1,6 +1,6 @@
 # Intégration continue - rendu (Amaury Zarzelli)
 
-### Outil utilisé : Travis CI
+### Outil utilisé : Travis CI
 Accès aux résultats des builds : https://travis-ci.org/azarz/GAMA
 
 ### Pipeline utilisée
