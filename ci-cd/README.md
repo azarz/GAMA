@@ -29,4 +29,11 @@ Travis CI est lié automatiquement à Github. Ainsi, dès qu'un commit est push 
 
 #### Pull/Merge request
 
-Travis CI construit automatiquement les Pull Request réalisées sur le dépôt Github. Cependant, en tant que contributeur au dépôt, il est par défaut toujours possible de réaliser un merge avant que le build ne soit terminé. Pour ne réaliser les merge qu'une fois que le build est passing, il faut paramétrer la branche dans Github (ce que j'ai fait) pour forcer l'attente. Cela étant dit, en tant qu'administrateur du dépôt, j'ai toujours la possibilité de forcer le merge, mais l'interface le déconseille fortement.
+Travis CI construit automatiquement les Pull Request réalisées sur le dépôt Github. Cependant, en tant que contributeur au dépôt, il est par défaut toujours possible de réaliser un merge avant que le build ne soit terminé. Pour ne réaliser les merge qu'une fois que le build passe, il faut paramétrer la branche dans Github (ce que j'ai fait [ici](#paramètres-pour-empêcher-le-merge-d'une-branche-dont-le-build-n'est-pas-passing)) pour forcer l'attente (comme constaté [ici](#résultat)).
+
+##### Paramètres pour empêcher le merge d'une branche dont le build n'est pas passing
+![parametres](protect.png)
+
+##### Résultat
+Merge impossible si la branche ne build pas :
+![merge impossible si la branche ne build pas](check.png)
