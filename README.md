@@ -1,6 +1,8 @@
 # GAMA : Génération Automatique de MNT Aléatoire
 ## Projet personnel 2, TSI 2017, Amaury Zarzelli
 
+[![build badge](https://travis-ci.org/azarz/GAMA.svg?branch=master)](https://travis-ci.org/azarz/GAMA)
+
 ### Introduction
 
 La bibliothèque GAMA permet de générer aléatoirement des cartes d'élévation de terrain à l'aide de plusieurs algorithmes de génération procédurale, et leur export aux formats ASC et GeoTiff.
