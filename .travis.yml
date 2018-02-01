@@ -2,6 +2,10 @@ language: java
 
 dist: trusty
 
+# Pour ne pas être spammé à chaque build...
+notifications:
+  email: false
+
 # Pour éviter de retélécharger les dépendances à chaque étape...
 cache:
   directories:
@@ -12,7 +16,7 @@ jdk:
   - oraclejdk8
 
 stages:
-  - compile
+  - name: compile
   - name: test
   - name: deploy
     if: branch = master
@@ -22,7 +26,11 @@ jobs:
     - stage: compile
       script: mvn compile
     - stage: test
-      script: jdk_switcher use openjdk8 && mvn test
-      script: jdk_switcher use oraclejdk8 && mvn test
+      script: 
+        - jdk_switcher use oraclejdk8
+        - mvn test
+      script: 
+        - jdk_switcher use openjdk8 
+        - mvn test
     - stage: deploy
       script: mvn install
