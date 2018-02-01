@@ -15,6 +15,13 @@ jdk:
   - openjdk8
   - oraclejdk8
 
+# Utilisé pour écraser le step "test" de travis par défaut
+script: 
+  - jdk_switcher use oraclejdk8
+  - mvn test
+  - jdk_switcher use openjdk8 
+  - mvn test
+
 stages:
   - compile
   - test
@@ -26,8 +33,5 @@ jobs:
     - stage: compile
       script: mvn compile
     - stage: test
-      script: 
-        - jdk_switcher use oraclejdk8
-        - mvn test
     - stage: deploy
       script: mvn install
