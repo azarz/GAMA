@@ -18,7 +18,7 @@ De plus, étant donné qu'aucun dépôt distant n'était défini dans le projet,
 
 L'une des demandes était de paralléliser une étape de la pipeline. Cela a été réalisé à l'étape de test, dans laquelle la commande est lancée en utilisant 2 JDK : openJDK et oracleJDK, et ce en parallèle. Cela est possible grâce à la commande jdk_switcher.
 
-#### Déploiement conditionnel
+#### Déploiement conditionnel
 
 Le déploiement est de plus conditionnel : il n'a lieu que si la branche courante est la branche master. Encore une fois, cela n'aurat été utilise que si la commande utilisée avait été mvn compile.
 
@@ -27,11 +27,11 @@ Le déploiement est de plus conditionnel : il n'a lieu que si la branche courant
 
 Travis CI est lié automatiquement à Github. Ainsi, dès qu'un commit est push sur le dépôt en ligne GAMA, un build est lancé sur la branche modifiée.
 
-#### Pull/Merge request
+#### Pull/Merge request
 
 Travis CI construit automatiquement les Pull Request réalisées sur le dépôt Github. Cependant, en tant que contributeur au dépôt, il est par défaut toujours possible de réaliser un merge avant que le build ne soit terminé. Pour ne réaliser les merge qu'une fois que le build passe, il faut paramétrer la branche dans Github (ce que j'ai fait [ici](#paramètres-pour-empêcher-le-merge-d'une-branche-dont-le-build-n'est-pas-passing)) pour forcer l'attente (comme constaté [ici](#résultat)).
 
-##### Paramètres pour empêcher le merge d'une branche dont le build n'est pas passing
+##### Paramètres pour empêcher le merge d'une branche dont le build n'est pas passing
 ![parametres](protect.png)
 
 ##### Résultat
