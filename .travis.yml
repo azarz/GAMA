@@ -2,6 +2,7 @@ language: java
 
 dist: trusty
 
+# Pour éviter de retélécharger les dépendances à chaque étape...
 cache:
   directories:
   - $HOME/.m2
@@ -12,7 +13,7 @@ jdk:
 
 stages:
   - compile
-  - test
+  - unit_test
   - name: deploy
     if: branch = master
 
@@ -20,7 +21,7 @@ jobs:
   include:
     - stage: compile
       script: mvn compile
-    - stage: test
+    - stage: unit_test
       script: 
           - jdk_switcher use openjdk8
           - mvn test
