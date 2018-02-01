@@ -13,7 +13,7 @@ jdk:
 
 stages:
   - compile
-  - test
+  - name: test
   - name: deploy
     if: branch = master
 
@@ -23,7 +23,6 @@ jobs:
       script: mvn compile
     - stage: test
       script: jdk_switcher use openjdk8 && mvn test
-    - stage: test
       script: jdk_switcher use oraclejdk8 && mvn test
     - stage: deploy
       script: mvn install
