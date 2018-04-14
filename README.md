@@ -59,7 +59,7 @@ En fonction de votre utilisation de l'API, plusieurs constructeurs de Terrain so
 
 + Construction par la méthode de génération :
     ```java
-    Terrain monTerrain = newTerrain("PerlinNoise");
+    Terrain monTerrain = new Terrain("PerlinNoise");
     ```
     Ce constructeur prend en argument le nom de la méthode voulue (non sensible à la casse) parmi
 	+ PerlinNoise
